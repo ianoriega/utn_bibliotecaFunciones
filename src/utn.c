@@ -65,6 +65,9 @@ int utn_getChar(char* pAuxChar,char* pTexto,char* pError,char minimo,char maximo
 	return retorno;
 }
 
+/*
+ * le pide al usuario un numero float
+ */
 int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float maximo,int reintento)
 {
 	int retorno = -1;
@@ -96,7 +99,27 @@ int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float m
 	return retorno;
 }
 
+/*
+ * rand() genera un numero entero aleatorio entre dos parametros
+ */
 
+int utn_getRandomNumber(int* pRandom, int minimo, int maximo)
+{
+	int numeroCreado;
+
+
+	do
+	{
+		srand(time(NULL));
+		numeroCreado = minimo + (rand() % maximo +1 - minimo);
+
+	}while(numeroCreado < minimo || numeroCreado > maximo);
+
+
+	*pRandom = numeroCreado;
+
+	return 0;
+}
 
 
 

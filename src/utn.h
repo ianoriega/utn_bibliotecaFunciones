@@ -18,5 +18,9 @@ int utn_getChar(char* pAuxChar,char* pTexto,char* pError,char minimo,char maximo
  */
 int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float maximo,int reintento);
 
+/*
+ * genera un numero aleatorio comprendido entre un minimo y un maximo
+ */
+int utn_getRandomNumber(int* pRandom, int minimo, int maximo);
 
 #endif /* UTN_H_ */
