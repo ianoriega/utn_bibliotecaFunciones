@@ -6,30 +6,36 @@
 int utn_getNumero(int* pAuxNumero,char* pTexto,char* pError,int minimo,int maximo,int reintento)
 {
 	int retorno = -1;
+	int bufferInt;
 
-	do
+	if(pAuxNumero != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
 	{
-		printf("%s", pTexto);
-		__fpurge(stdin);
-		if(scanf("%d",pAuxNumero)==1)
+		retorno = -2;
+
+		do
 		{
-			if((*pAuxNumero) <= maximo && (*pAuxNumero) >= minimo)
+			printf("%s", pTexto);
+			__fpurge(stdin);
+			if(scanf("%d",&bufferInt)==1)
 			{
-				retorno = 0;
-				break;
+				if((bufferInt) <= maximo && (bufferInt) >= minimo)
+				{
+					retorno = 0;
+					*pAuxNumero = bufferInt;
+					break;
+				}
+				else
+				{
+					printf("%s\n",pError);
+				}
 			}
 			else
 			{
 				printf("%s\n",pError);
 			}
-		}
-		else
-		{
-			printf("%s\n",pError);
-		}
-		reintento--;
-	}while(reintento>= 0);
-
+			reintento--;
+		}while(reintento>= 0);
+	}
 
 	return retorno;
 }
@@ -37,30 +43,36 @@ int utn_getNumero(int* pAuxNumero,char* pTexto,char* pError,int minimo,int maxim
 int utn_getChar(char* pAuxChar,char* pTexto,char* pError,char minimo,char maximo,int reintento)
 {
 	int retorno = -1;
+	char bufferChar;
 
-	do
+	if(pAuxChar != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
 	{
-		printf("%s", pTexto);
-		__fpurge(stdin);
-		if(scanf("%c",pAuxChar)==1)
+		retorno = -2;
+
+		do
 		{
-			if((*pAuxChar) <= maximo && (*pAuxChar) >= minimo)
+			printf("%s", pTexto);
+			__fpurge(stdin);
+			if(scanf("%c",&bufferChar)==1)
 			{
-				retorno = 0;
-				break;
+				if((bufferChar) <= maximo && (bufferChar) >= minimo)
+				{
+					retorno = 0;
+					*pAuxChar = bufferChar;
+					break;
+				}
+				else
+				{
+					printf("%s\n",pError);
+				}
 			}
 			else
 			{
 				printf("%s\n",pError);
 			}
-		}
-		else
-		{
-			printf("%s\n",pError);
-		}
-		reintento--;
-	}while(reintento>= 0);
-
+			reintento--;
+		}while(reintento>= 0);
+	}
 
 	return retorno;
 }
@@ -71,30 +83,37 @@ int utn_getChar(char* pAuxChar,char* pTexto,char* pError,char minimo,char maximo
 int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float maximo,int reintento)
 {
 	int retorno = -1;
+	float bufferFloat;
 
-	do
+	if(pAuxFloat != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
 	{
-		printf("%s", pTexto);
-		__fpurge(stdin);
-		if(scanf("%f",pAuxFloat)==1)
+		retorno = -2;
+
+		do
 		{
-			if((*pAuxFloat) <= maximo && (*pAuxFloat) >= minimo)
+			printf("%s", pTexto);
+			__fpurge(stdin);
+			if(scanf("%f",&bufferFloat)==1)
 			{
-				retorno = 0;
-				break;
+				if((bufferFloat) <= maximo && (bufferFloat) >= minimo)
+				{
+					retorno = 0;
+					*pAuxFloat = bufferFloat;
+					break;
+				}
+				else
+				{
+					printf("%s\n",pError);
+				}
 			}
 			else
 			{
 				printf("%s\n",pError);
 			}
-		}
-		else
-		{
-			printf("%s\n",pError);
-		}
-		reintento--;
-	}while(reintento>= 0);
+			reintento--;
+		}while(reintento>= 0);
 
+	}
 
 	return retorno;
 }
