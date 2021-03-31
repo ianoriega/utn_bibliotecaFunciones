@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
+#include "utn.h"
 
 int arr_calcularMaximoInt(int array[], int limite, int* pResultado)
 {
@@ -67,4 +68,30 @@ int arr_calcularPromedioInt(int array[], int limite, float* pResultado)
 
 	return retorno;
 }
+
+
+int arr_cargarValoresInt(int array[], int limite)
+{
+	int retorno =-1;
+	int i;
+	int valorIngresado;
+
+	if(array != NULL && limite >= 0)
+	{
+		for( i=0; i<limite; i++)
+		{
+			if(utn_getNumero(&valorIngresado, "\nIngrese el valor", "\nFuera de parametro",
+																    	 -32000, 32000, 2)==0)
+			{
+				array[i] = valorIngresado;
+				printf("\n%d ingresado en posicion %d", valorIngresado, i);
+			}
+		}
+		retorno = 0;
+	}
+	return retorno;
+}
+
+
+
 
