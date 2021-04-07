@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <stdio_ext.h>
 #include "utn.h"
+#include "arr.h"
 
+//funcion que calcula el elemento maximo de un array
 int arr_calcularMaximoInt(int array[], int limite, int* pResultado)
 {
 	int retorno = -1;
@@ -26,11 +28,13 @@ int arr_calcularMaximoInt(int array[], int limite, int* pResultado)
 	return retorno;
 }
 
-int arr_calcularMinimoInt(int array[], int limite, int* pResultado)
+// funcion que calcula el elemento minimo int de un array
+int arr_calcularMinimoInt(int array[], int limite, int* pResultado,int* pPosicionMinimo)
 {
 	int retorno = -1;
 	int i;
 	int minimo;
+	int bufferI;
 
 	if(array != NULL && limite > 0 && pResultado != NULL)
 	{
@@ -40,16 +44,18 @@ int arr_calcularMinimoInt(int array[], int limite, int* pResultado)
 			if(array[i] < minimo)
 			{
 				minimo = array[i];
+				bufferI = i;
 			}
 		}
 		*pResultado = minimo;
+		*pPosicionMinimo = bufferI;
 		retorno = 0;
 	}
 
 	return retorno;
 }
 
-
+//funcion que recorre un array y calcula el promedio
 int arr_calcularPromedioInt(int array[], int limite, float* pResultado)
 {
 	int retorno = -1;
@@ -69,7 +75,7 @@ int arr_calcularPromedioInt(int array[], int limite, float* pResultado)
 	return retorno;
 }
 
-
+// funcion que carga valores por teclado en un array
 int arr_cargarValoresInt(int array[], int limite)
 {
 	int retorno =-1;
@@ -80,17 +86,26 @@ int arr_cargarValoresInt(int array[], int limite)
 	{
 		for( i=0; i<limite; i++)
 		{
-			if(utn_getNumero(&valorIngresado, "\nIngrese el valor", "\nFuera de parametro",
+			if(utn_getNumero(&valorIngresado, "\nIngrese el valor", "\nFuera de parametro\n",
 																    	 -32000, 32000, 2)==0)
 			{
 				array[i] = valorIngresado;
-				printf("\n%d ingresado en posicion %d", valorIngresado, i);
+				printf("\n%d ingresado en posicion %d\n", valorIngresado, i);
 			}
 		}
 		retorno = 0;
 	}
 	return retorno;
 }
+
+
+
+
+
+
+
+
+
 
 
 
