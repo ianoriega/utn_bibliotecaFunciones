@@ -2,26 +2,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
+#include <string.h>
+#include "utn.h"
+#include "arr.h"
 
-int utn_getNumero(int* pAuxNumero,char* pTexto,char* pError,int minimo,int maximo,int reintento)
+
+int utn_getNumero(int* numeroObtenido,int limite, char* pTexto,char* pError,int minimo,int maximo,int reintento)
 {
 	int retorno = -1;
+	char bufferNumeros[limite];
 	int bufferInt;
 
-	if(pAuxNumero != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
+	if(numeroObtenido != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
 	{
 		retorno = -2;
 
 		do
 		{
 			printf("%s", pTexto);
+
 			__fpurge(stdin);
-			if(scanf("%d",&bufferInt)==1)
+			fgets(bufferNumeros,limite,stdin);
+			if(bufferNumeros[strlen(bufferNumeros)-1]==10)
 			{
-				if((bufferInt) <= maximo && (bufferInt) >= minimo)
+				bufferNumeros[strlen(bufferNumeros)-1] = 0;
+			}
+
+			if(utn_validarQueSeaNumero(bufferNumeros)==1)
+			{
+				bufferInt = atoi(bufferNumeros);
+
+				if(bufferInt <= maximo && bufferInt >= minimo)
 				{
+					*numeroObtenido = bufferInt;
 					retorno = 0;
-					*pAuxNumero = bufferInt;
 					break;
 				}
 				else
@@ -31,8 +45,9 @@ int utn_getNumero(int* pAuxNumero,char* pTexto,char* pError,int minimo,int maxim
 			}
 			else
 			{
-				printf("%s\n",pError);
+				printf("\ncaracteres no numericos\n");
 			}
+
 			reintento--;
 		}while(reintento>= 0);
 	}
@@ -40,37 +55,38 @@ int utn_getNumero(int* pAuxNumero,char* pTexto,char* pError,int minimo,int maxim
 	return retorno;
 }
 
-int utn_getChar(char* pAuxChar,char* pTexto,char* pError,char minimo,char maximo,int reintento)
+int utn_getChar(char pAuxChar[],int limite,char* pTexto,char* pError,int reintento)
 {
 	int retorno = -1;
-	char bufferChar;
 
-	if(pAuxChar != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
+
+	if(pAuxChar != NULL && pTexto != NULL && pError != NULL && reintento >= 0 && limite >0)
 	{
 		retorno = -2;
 
 		do
 		{
 			printf("%s", pTexto);
+
 			__fpurge(stdin);
-			if(scanf("%c",&bufferChar)==1)
+			fgets(pAuxChar,limite,stdin);
+			if(pAuxChar[strlen(pAuxChar)-1]==10)
 			{
-				if((bufferChar) <= maximo && (bufferChar) >= minimo)
-				{
-					retorno = 0;
-					*pAuxChar = bufferChar;
-					break;
-				}
-				else
-				{
-					printf("%s\n",pError);
-				}
+				pAuxChar[strlen(pAuxChar)-1] = 0;
+			}
+
+			if(utn_validarQueSeaChar(pAuxChar)==1)
+			{
+				retorno =0;
+				break;
 			}
 			else
 			{
-				printf("%s\n",pError);
+				printf("\n El caracter ingresado no es una letra");
 			}
+
 			reintento--;
+
 		}while(reintento>= 0);
 	}
 
@@ -129,7 +145,7 @@ int utn_getRandomNumber(int* pRandom, int minimo, int maximo)
 
 	do
 	{
-		srand(time(NULL));
+		//srand(time(NULL));
 		numeroCreado = minimo + (rand() % maximo +1 - minimo);
 
 	}while(numeroCreado < minimo || numeroCreado > maximo);
@@ -141,6 +157,52 @@ int utn_getRandomNumber(int* pRandom, int minimo, int maximo)
 }
 
 
+/*
+ * valida que la cadena ingresada tenga numeros
+ */
+int utn_validarQueSeaNumero(char texto[])
+{
+	int i=0;
+	int retorno;
+
+	if(texto != NULL)
+	{
+		retorno =1;
+		while(texto[i]!=0)
+		{
+			if(texto[i] < 48 || texto[i] >57)
+			{
+				retorno = -1;
+				break;
+			}
+
+			i++;
+		}
+	}
+	return retorno;
+
+}
+
+int utn_validarQueSeaChar(char texto[])
+{
+	int i=0;
+	int retorno;
+
+	if(texto != NULL)
+	{
+		retorno =1;
+		while(texto[i] !=0)
+		{
+			if(texto[i] < 'A' || texto[i] > 'z')
+			{
+				retorno = -1;
+				break;
+			}
+			i++;
+		}
+	}
+	return retorno;
+}
 
 
 

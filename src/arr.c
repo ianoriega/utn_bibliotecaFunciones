@@ -1,8 +1,11 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
+#include <string.h>
 #include "utn.h"
 #include "arr.h"
+
 
 //funcion que calcula el elemento maximo de un array
 int arr_calcularMaximoInt(int array[], int limite, int* pResultado)
@@ -29,12 +32,11 @@ int arr_calcularMaximoInt(int array[], int limite, int* pResultado)
 }
 
 // funcion que calcula el elemento minimo int de un array
-int arr_calcularMinimoInt(int array[], int limite, int* pResultado,int* pPosicionMinimo)
+int arr_calcularMinimoInt(int array[], int limite, int* pResultado)
 {
 	int retorno = -1;
 	int i;
 	int minimo;
-	int bufferI;
 
 	if(array != NULL && limite > 0 && pResultado != NULL)
 	{
@@ -44,11 +46,9 @@ int arr_calcularMinimoInt(int array[], int limite, int* pResultado,int* pPosicio
 			if(array[i] < minimo)
 			{
 				minimo = array[i];
-				bufferI = i;
 			}
 		}
 		*pResultado = minimo;
-		*pPosicionMinimo = bufferI;
 		retorno = 0;
 	}
 
@@ -76,7 +76,7 @@ int arr_calcularPromedioInt(int array[], int limite, float* pResultado)
 }
 
 // funcion que carga valores por teclado en un array
-int arr_cargarValoresInt(int array[], int limite)
+/*int arr_cargarValoresInt(int array[], int limite)
 {
 	int retorno =-1;
 	int i;
@@ -96,9 +96,67 @@ int arr_cargarValoresInt(int array[], int limite)
 		retorno = 0;
 	}
 	return retorno;
+}*/
+
+// burbujeo array mejorado menor a mayot
+int arr_ordenarArrayMenorMayor(int array[], int limite)
+{
+	int retorno = -1;
+	int flagSwap;
+	int i;
+	int buffer;
+
+	do
+	{
+		flagSwap = 0;
+		limite--;
+		for(i=0; i<limite; i++)
+		{
+			retorno++;
+
+			if(array[i] > array[i+1])
+			{
+				buffer = array[i+1];
+				array[i+1] = array[i];
+				array[i] = buffer;
+				flagSwap = 1;
+			}
+		}
+
+	}while(flagSwap);
+
+	return retorno;
 }
 
+//burbujeo mejorado de mayor a menor
+int arr_ordenarArrayMayorMenor(int array[], int limite)
+{
+	int retorno = -1;
+	int flagSwap;
+	int i;
+	int buffer;
 
+	do
+	{
+		flagSwap = 0;
+		limite--;
+		for(i=0; i<limite; i++)
+		{
+			retorno++;
+
+			if(array[i] <  array[i+1])
+			{
+				buffer = array[i+1];
+				array[i+1] = array[i];
+				array[i] = buffer;
+				flagSwap = 1;
+			}
+		}
+
+	}while(flagSwap);
+
+	return retorno;
+}
 
 
 
