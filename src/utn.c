@@ -96,8 +96,57 @@ int utn_getChar(char pAuxChar[],int limite,char* pTexto,char* pError,int reinten
 /*
  * le pide al usuario un numero float
  */
-int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float maximo,int reintento)
+int utn_getFloat(float* numeroObtenido,int limite, char* pTexto,char* pError,float minimo,float maximo,int reintento)
+
 {
+	int retorno = -1;
+	char bufferNumeros[limite];
+	float bufferFloat;
+
+	if(numeroObtenido != NULL && limite >=0 && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
+	{
+		retorno = -2;
+
+		do
+		{
+			printf("%s", pTexto);
+
+			__fpurge(stdin);
+			fgets(bufferNumeros,limite,stdin);
+			if(bufferNumeros[strlen(bufferNumeros)-1]==10)
+			{
+				bufferNumeros[strlen(bufferNumeros)-1] = 0;
+			}
+
+			if(utn_validarQueSeaFloat(bufferNumeros)==1)
+			{
+				bufferFloat = atof(bufferNumeros);
+
+				printf("\n%f",bufferFloat);
+
+				if(bufferFloat <= maximo && bufferFloat >= minimo)
+				{
+					*numeroObtenido = bufferFloat;
+					retorno = 0;
+					break;
+				}
+				else
+				{
+					printf("%s\n",pError);
+				}
+			}
+			else
+			{
+				printf("\ncaracteres no numericos\n");
+			}
+
+			reintento--;
+		}while(reintento>= 0);
+	}
+
+	return retorno;
+}
+/*{
 	int retorno = -1;
 	float bufferFloat;
 
@@ -133,6 +182,7 @@ int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float m
 
 	return retorno;
 }
+*/
 
 /*
  * rand() genera un numero entero aleatorio entre dos parametros
@@ -204,7 +254,28 @@ int utn_validarQueSeaChar(char texto[])
 	return retorno;
 }
 
+int utn_validarQueSeaFloat(char texto[])
+{
+	int i=0;
+	int retorno;
 
+	if(texto != NULL)
+	{
+		retorno =1;
+		while(texto[i]!=0)
+		{
+			if(texto[i] < 46 || texto[i] >57 || texto[i] == 47)
+			{
+				retorno = -1;
+				break;
+			}
+
+			i++;
+		}
+	}
+	return retorno;
+
+}
 
 
 

@@ -16,7 +16,7 @@ int utn_getChar(char pAuxChar[],int limite,char* pTexto,char* pError,int reinten
 /*
  * getFloat: le pide un numero float al usuario
  */
-int utn_getFloat(float* pAuxFloat,char* pTexto,char* pError,float minimo,float maximo,int reintento);
+int utn_getFloat(float* numeroObtenido,int limite, char* pTexto,char* pError,float minimo,float maximo,int reintento);
 
 /*
  * genera un numero aleatorio comprendido entre un minimo y un maximo
@@ -33,5 +33,7 @@ int utn_validarQueSeaNumero(char texto[]);
  * valida que la cadena sea de char
  */
 int utn_validarQueSeaChar(char texto[]);
+
+int utn_validarQueSeaFloat(char texto[]);
 
 #endif /* UTN_H_ */
