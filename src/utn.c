@@ -122,8 +122,6 @@ int utn_getFloat(float* numeroObtenido,int limite, char* pTexto,char* pError,flo
 			{
 				bufferFloat = atof(bufferNumeros);
 
-				printf("\n%f",bufferFloat);
-
 				if(bufferFloat <= maximo && bufferFloat >= minimo)
 				{
 					*numeroObtenido = bufferFloat;
@@ -146,43 +144,7 @@ int utn_getFloat(float* numeroObtenido,int limite, char* pTexto,char* pError,flo
 
 	return retorno;
 }
-/*{
-	int retorno = -1;
-	float bufferFloat;
 
-	if(pAuxFloat != NULL && pTexto != NULL && pError != NULL && minimo <= maximo && reintento >= 0)
-	{
-		retorno = -2;
-
-		do
-		{
-			printf("%s", pTexto);
-			__fpurge(stdin);
-			if(scanf("%f",&bufferFloat)==1)
-			{
-				if((bufferFloat) <= maximo && (bufferFloat) >= minimo)
-				{
-					retorno = 0;
-					*pAuxFloat = bufferFloat;
-					break;
-				}
-				else
-				{
-					printf("%s\n",pError);
-				}
-			}
-			else
-			{
-				printf("%s\n",pError);
-			}
-			reintento--;
-		}while(reintento>= 0);
-
-	}
-
-	return retorno;
-}
-*/
 
 /*
  * rand() genera un numero entero aleatorio entre dos parametros
@@ -243,7 +205,7 @@ int utn_validarQueSeaChar(char texto[])
 		retorno =1;
 		while(texto[i] !=0)
 		{
-			if(texto[i] < 'A' || texto[i] > 'z')
+			if((texto[i] < 'A' || texto[i] > 'z') && (texto[i] != 32))
 			{
 				retorno = -1;
 				break;

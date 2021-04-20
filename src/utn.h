@@ -34,6 +34,9 @@ int utn_validarQueSeaNumero(char texto[]);
  */
 int utn_validarQueSeaChar(char texto[]);
 
+
+
 int utn_validarQueSeaFloat(char texto[]);
+
 
 #endif /* UTN_H_ */
