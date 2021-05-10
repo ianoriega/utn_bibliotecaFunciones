@@ -3,8 +3,40 @@
 #include <stdlib.h>
 #include <stdio_ext.h>
 #include <string.h>
+#include <time.h>
 #include "utn.h"
 #include "arr.h"
+
+/**
+ * \brief recibe una cadena de caracteres ingresada por el usuario
+ * \param char cadenaRecibida[] puntero a array para cargar la cadena ingresada
+ * \param int limite limite de caracteres de la cadena a recibir
+ * \param char* pTexto puntero que recibe el mensaje a mostrar
+ * \param char* pError puntero que recibe el mensaje de error
+
+ * \return int retorno -1 si no pudo validar y 0 si valido correctamente
+ */
+int utn_getCadena(char cadenaRecibida[], int limite, char* pTexto, char* pError)
+{
+	int retorno =-1;
+
+	if(cadenaRecibida !=NULL && limite >=0)
+	{
+		retorno =0;
+
+		printf("%s", pTexto);
+
+		__fpurge(stdin);
+		fgets(cadenaRecibida,limite,stdin);
+		if(cadenaRecibida[strlen(cadenaRecibida)-1]==10)
+		{
+			cadenaRecibida[strlen(cadenaRecibida)-1] = 0;
+		}
+
+	}
+
+	return retorno;
+}
 
 
 int utn_getNumero(int* numeroObtenido,int limite, char* pTexto,char* pError,int minimo,int maximo,int reintento)
@@ -55,7 +87,7 @@ int utn_getNumero(int* numeroObtenido,int limite, char* pTexto,char* pError,int 
 	return retorno;
 }
 
-int utn_getChar(char pAuxChar[],int limite,char* pTexto,char* pError,int reintento)
+int utn_getString(char pAuxChar[],int limite,char* pTexto,char* pError,int reintento)
 {
 	int retorno = -1;
 
@@ -238,6 +270,185 @@ int utn_validarQueSeaFloat(char texto[])
 	return retorno;
 
 }
+
+
+/**
+ * \brief Recibe un string y lo valida como Nombre
+ * \param char array[] recibe la cadena de caracteres
+ * \return retorna -1 si no pudo validar y 0 si pudo validar
+ */
+int utn_isValidName(char array[])
+{
+	int retorno = -1;
+
+	if(array != NULL)
+	{
+		if(utn_validarQueSeaChar(array)==1)
+		{
+			retorno =0;
+		}
+	}
+
+	return retorno;
+}
+
+/**
+ *\brief verifica que un string sea un CUIT
+ *\param char arra[] recibe la cadena
+ *\param int lenght recibe el tamaño de la cadena
+ *\return retorno devuelve 1 si valido
+ */
+int utn_esCuitValido(char array[], int lenght)
+{
+	int retorno=-1;
+
+	if(array!=NULL && lenght>=0)
+	{
+		if(strlen(array) == 12)
+		{
+			if(utn_validarQueSeaNumero(array)==1)
+			{
+				if(array[0]>'1' && array[0]<'4')
+				{
+					retorno =1;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
+/**
+ * \brief Recibe un string y lo valida como DNI
+ * \param char array[] recibe la cadena de caracteres
+ * \return retorna -1 si no pudo validar y 0 si pudo validar
+ */
+/*int utn_isValidDni(char array[])
+{
+	int retorno =-1;
+
+	if(array != NULL)
+	{
+		if(strlen(array) < 10 && strlen(array)>7)
+		{
+			if(utn_validarQueSeaNumero(array)==0)
+			{
+				retorno =0;
+			}
+		}
+	}
+
+	return retorno;
+}*/
+
+/**
+ *\brief Genera un id aleatorio no repetido
+ *\param int array[] recibe el array
+ *\param  int indiceArray recibe la posicion donde asignar el id
+ *\param  int limite recibe el limite del array
+ *\param  int minimo recibe el valor minimo del id
+ *\param  int maximo recibe el valor maximo del id
+ *\return retorno 0 si valido y -1 si no valido
+ */
+int utn_randomId(int array[], int indiceArray, int limite, int minimo, int maximo)
+{
+	int retorno = -1;
+	int flagIdRepetido;
+	int nuevoId;
+	int i;
+
+	if(array != NULL && minimo<maximo)
+	{
+		//ID
+		do
+		{
+			flagIdRepetido =1;
+
+			do
+			{
+				srand(time(NULL));
+				nuevoId = minimo + (rand() % maximo +1 - minimo);
+
+			}while(nuevoId < minimo || nuevoId > maximo);
+
+			for(i=0;i<limite;i++)
+			{
+				if(array[i] == nuevoId)
+				{
+					break;
+				}
+
+				flagIdRepetido =0;
+			}
+
+		}while(flagIdRepetido);
+
+		array[indiceArray] = nuevoId;
+
+		retorno =0;
+	}
+
+	return retorno;
+}
+
+/**
+ * \brief pide al usuario que ingrese su cuit
+ */
+int utn_getCUIT(char cadenaRecibida[], int limite, char* pTexto, char* pError)
+{
+	int retorno =-1;
+
+
+	if(cadenaRecibida !=NULL && limite >=0)
+	{
+		retorno =0;
+
+		printf("%s", pTexto);
+
+		__fpurge(stdin);
+		fgets(cadenaRecibida,limite,stdin);
+		if(cadenaRecibida[strlen(cadenaRecibida)-1]==10)
+		{
+			cadenaRecibida[strlen(cadenaRecibida)-1] = 0;
+		}
+
+		if(utn_validarQueSeaNumero(cadenaRecibida)==1)
+		{
+			retorno =0;
+		}
+
+	}
+	else
+	{
+		printf("&s",pError);
+	}
+
+	return retorno;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
